@@ -20,7 +20,7 @@ variable "olm_version" {
 
 locals {
   olm_base_url = format(
-    "https://raw.githubusercontent.com/operator-framework/operator-lifecycle-manager/%s",
+    "https://github.com/operator-framework/operator-lifecycle-manager/releases/download/%s",
     var.olm_version
   )
   # Make sure dependencies are resolved correctly, this is important in context of terraform destroy to make sure the
@@ -37,11 +37,11 @@ locals {
 }
 
 data "http" "olm_crds" {
-  url = format("%s/deploy/upstream/quickstart/crds.yaml", local.olm_base_url)
+  url = format("%s/crds.yaml", local.olm_base_url)
 }
 
 data "http" "olm" {
-  url = format("%s/deploy/upstream/quickstart/olm.yaml", local.olm_base_url)
+  url = format("%s/olm.yaml", local.olm_base_url)
 }
 
 data "kubectl_file_documents" "olm_crds" {
