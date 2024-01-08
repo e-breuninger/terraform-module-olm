@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/e-breuninger/terraform-module-olm/compare/v2.0.1...v2.1.0) (2024-01-08)
+
+
+### Features
+
+* Add output for catalog subscription resource ([7d71a9e](https://github.com/e-breuninger/terraform-module-olm/commit/7d71a9ebf2aa2ef3890712fef0e8b60df49d5894))
+
 ## [2.0.1](https://github.com/e-breuninger/terraform-module-olm/compare/v2.0.0...v2.0.1) (2024-01-08)
 
 
