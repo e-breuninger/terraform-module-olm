@@ -15,7 +15,7 @@ terraform {
 variable "olm_version" {
   type        = string
   description = "Version of the operator lifecycle manager."
-  default     = "v0.18.3"
+  default     = "v0.26.0"
 }
 
 locals {
