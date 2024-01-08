@@ -1,0 +1,43 @@
+name: semantic-release
+on:
+  workflow_run:
+    workflows: [pre-commit]
+    types: [completed]
+    branches: [master]
+jobs:
+  semantic-release:
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
+    runs-on: ubuntu-latest
+    container:
+      image: node:lts-alpine3.19
+    env:
+      NPM_CACHE_DIR: ~/.cache/npm
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Install job dependencies
+        run: apk add tar git
+      - uses: actions/cache@v3
+        with:
+          path: ~/.cache
+          key: semantic-release
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Install semantic-release and plugins
+        run: npm install --cache $NPM_CACHE_DIR
+          semantic-release
+          @semantic-release/github
+          @semantic-release/changelog
+          @semantic-release/git
+          @semantic-release/exec
+          conventional-changelog-conventionalcommits
+      - name: Run semantic-release
+        run: |
+          git config --global --add safe.directory $PWD
+          npx semantic-release
