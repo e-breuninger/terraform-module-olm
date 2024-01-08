@@ -30,6 +30,11 @@ data "kustomization_overlay" "olm" {
 
 module "kustomization" {
   source                    = "e-breuninger/kustomization/module"
-  version                   = "1.0.0"
+  version                   = "1.1.0"
   kustomization_data_source = data.kustomization_overlay.olm
+}
+
+output "subscription_resource" {
+  value       = module.kustomization.p0["apiextensions.k8s.io/CustomResourceDefinition/_/subscriptions.operators.coreos.com"]
+  description = "The crd for catalog subscriptions. Use this output to depend on the crd for subscriptions to be applied."
 }
