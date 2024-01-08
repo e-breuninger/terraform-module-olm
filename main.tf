@@ -1,10 +1,6 @@
 terraform {
   required_version = "~>1.2"
   required_providers {
-    http = {
-      source  = "hashicorp/http"
-      version = "~> 3.2"
-    }
     kustomization = {
       source  = "kbst/kustomization"
       version = "~> 0.9"
