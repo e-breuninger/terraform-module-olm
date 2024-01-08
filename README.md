@@ -3,6 +3,23 @@
 Installs [Operator Lifecycle Manager](https://github.com/operator-framework/operator-lifecycle-manager/)
 into a Kubernetes cluster.
 
+## Example
+
+```terraform
+module "olm" {
+  source  = "e-breuninger/olm/module"
+  version = "v2.1.0"
+  # renovate: datasource=github-releases depName=operator-framework/operator-lifecycle-manager
+  olm_version = "v0.26.0"
+}
+
+resource "some_resource" "operator_subscription" {
+  depends_on = [
+    module.olm.subscription_resource
+  ]
+}
+```
+
 <!-- BEGIN_TF_DOCS -->
 
 
@@ -14,7 +31,9 @@ into a Kubernetes cluster.
 
 ## Outputs
 
-No outputs.
+| Name | Description |
+|------|-------------|
+| <a name="output_subscription_resource"></a> [subscription\_resource](#output\_subscription\_resource) | The crd for catalog subscriptions. Use this output to depend on the crd for subscriptions to be applied. |
 <!-- END_TF_DOCS -->
 
 ## Upgrade to v2.0.0
