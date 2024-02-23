@@ -30,7 +30,7 @@ data "kustomization_overlay" "olm" {
 
 module "kustomization" {
   source                    = "e-breuninger/kustomization/module"
-  version                   = "1.1.0"
+  version                   = "1.2.0"
   kustomization_data_source = data.kustomization_overlay.olm
 }
 
